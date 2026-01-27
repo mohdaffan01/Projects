@@ -55,7 +55,7 @@ export default function LoginPage() {
           </div>
 
           {/* Login Button */}
-          <Link to={"/adminDashboard"}><button
+          <Link to={"/admin/dashboard"}><button
             type="submit"
             className="w-full py-3 rounded-xl bg-linear-to-r from-blue-600 to-slate-700 text-white font-semibold text-lg shadow-lg cursor-pointer hover:opacity-90 active:scale-95 transition"
           >
