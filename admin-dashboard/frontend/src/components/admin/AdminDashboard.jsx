@@ -13,8 +13,8 @@ export default function AdminDashboard() {
       <Navbar />
       <Routes>
         <Route path="dashboard" element={<Dashboard />} />
-        <Route path="products" element={<Product />} />
-        <Route path="users" element={<Users />} />
+        <Route path="products" element={<Product name={"keyboard"} category={"Electronics"} type={"computer"} price={"1000"}/>} />
+        <Route path="users" element={<Users name={"Affan"} phoneNo={"9898989"} address={"Sahaspur"} product={"electronics"}/>} />
 
         <Route path="" element={<Navigate to={"dashboard"} />} />
         
