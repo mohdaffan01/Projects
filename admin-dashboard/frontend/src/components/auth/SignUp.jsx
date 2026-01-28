@@ -1,7 +1,42 @@
+import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "../../api/axios";
+import LoginPage from "./LoginPage";
 
 export default function SignUP() {
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const navigate = useNavigate();
+  const handleSubmit = async () => {
+    try {
+      
+      const res = await axios.post("/signup", {
+        name,
+        username,
+        email,
+        password,
+        confirmPassword,
+      });
+      if(res){
+        navigate("/login")
+      }
+      setName("")
+      setUsername("")
+      setEmail("")
+      setPassword("")
+      setConfirmPassword("")
+           
+    } catch (err) {
+      alert("Something went wrong",err)
+      console.log(err.response?.data || err.message);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-900 via-slate-800 to-blue-900 px-4">
       <div className="w-full max-w-5xl bg-slate-900/90 backdrop-blur-lg rounded-2xl shadow-2xl overflow-hidden">
@@ -10,62 +45,69 @@ export default function SignUP() {
           <div className="hidden md:flex flex-col justify-center p-12 bg-linear-to-br from-slate-900 to-blue-900">
             <h2 className="text-4xl font-bold text-gray-100">Create Account ✨</h2>
             <p className="mt-4 text-gray-400 text-lg leading-relaxed">
-              Join us and start building amazing things. Create your account
-              to access all features and stay productive.
+              Join us and start building amazing things. Create your account to access all features and stay productive.
             </p>
           </div>
 
           {/* Right Section */}
           <div className="p-10">
-            <h3 className="text-2xl font-semibold text-gray-100 mb-6">
-              Sign Up
-            </h3>
+            <h3 className="text-2xl font-semibold text-gray-100 mb-6">Sign Up</h3>
 
             {/* Form */}
             <form className="space-y-5">
-              {/* Username */}
+              {/* Name */}
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
-                  Username
-                </label>
+                <label className="block text-sm font-medium text-gray-300 mb-1">Name</label>
                 <input
                   type="text"
+                  value={name}
+                  placeholder="Enter your name"
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl border text-white border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-1">Username</label>
+                <input
+                  type="text"
+                  value={username}
                   placeholder="Choose a username"
+                  onChange={(e) => setUsername(e.target.value)}
                   className="w-full px-4 py-3 rounded-xl border text-white border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition"
                 />
               </div>
 
               {/* Email */}
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
-                  Email
-                </label>
+                <label className="block text-sm font-medium text-gray-300 mb-1">Email</label>
                 <input
                   type="email"
+                  value={email}
                   placeholder="Enter your email"
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-3 rounded-xl text-white border border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition"
                 />
               </div>
 
               {/* Password */}
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
-                  Password
-                </label>
+                <label className="block text-sm font-medium text-gray-300 mb-1">Password</label>
                 <input
                   type="password"
+                  value={password}
                   placeholder="Create a password"
+                  onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-4 py-3 text-white rounded-xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition"
                 />
               </div>
 
               {/* Confirm Password */}
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
-                  Confirm Password
-                </label>
+                <label className="block text-sm font-medium text-gray-300 mb-1">Confirm Password</label>
                 <input
                   type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Confirm your password"
                   className="w-full px-4 py-3 rounded-xl text-white border border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition"
                 />
@@ -73,7 +115,8 @@ export default function SignUP() {
 
               {/* Sign Up Button */}
               <button
-                type="submit"
+                type="button"
+                onClick={handleSubmit}
                 className="w-full py-3 rounded-xl bg-linear-to-r cursor-pointer from-blue-600 to-slate-700 text-white font-semibold text-lg shadow-lg hover:opacity-90 active:scale-95 transition"
               >
                 Create Account
@@ -97,10 +140,8 @@ export default function SignUP() {
             <p className="text-center text-gray-300 mt-6">
               Already have an account?{" "}
               <Link to="/login">
-              <button className="text-blue-400 cursor-pointer font-semibold hover:underline">
-                Login
-              </button></Link>
-              
+                <button className="text-blue-400 cursor-pointer font-semibold hover:underline">Login</button>
+              </Link>
             </p>
           </div>
         </div>
