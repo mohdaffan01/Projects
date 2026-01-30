@@ -37,7 +37,7 @@ export default function Sidbar() {
           <p className="px-3 py-2 cursor-pointer rounded hover:bg-gray-700">📦 Products</p>
         </Link>
 
-        <p className="px-3 py-2 cursor-pointer rounded hover:bg-gray-700">🛒 Orders</p>
+        <Link to={"/admin/orders"}><p className="px-3 py-2 cursor-pointer rounded hover:bg-gray-700">🛒 Orders</p></Link>
 
         <Link to={"/admin/users"}><p className="px-3 py-2 cursor-pointer rounded hover:bg-gray-700">👥 Users</p></Link>
         <p className="px-3 py-2 cursor-pointer rounded hover:bg-gray-700">💳 Payment</p>

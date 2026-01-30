@@ -4,18 +4,18 @@ import Navbar from "./Navbar";
 import { BsSearch } from "react-icons/bs";
 import axios from "../../api/axios";
 
-export default function Product() {
-  const [products, setProducts] = useState([]);
+export default function Order() {
+  const [orders, setOrders] = useState([]);
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchOrders = async () => {
       try {
-        const response = await axios.get("/getProduct");
-        setProducts(response.data.data);
+        const response = await axios.get("/getOrders");
+        setOrders(response.data.data);
       } catch (error) {
         alert("Something went wrong");
       }
     };
-    fetchProduct();
+    fetchOrders();
   }, []);
   return (
     <div className="ml-64 mt-16  h-full">
@@ -30,13 +30,14 @@ export default function Product() {
       {/**All Products */}
       <div className="bg-gray-800 rounded-xl m-3 ml-4 mt-2 h-full p-2">
         <div className="bg-white rounded-xl shadow-md p-6 h-full grid grid-cols-4 gap-4 ">
-          {products.map((product) => (
-            <div key={product._id} className="border rounded-md p-2 ">
-              <h2 className="text-2xl font-semibold text-gray-800">{product.name}</h2>
-              <p className="text-gray-600 mt-2">Description : {product.description}</p>
-              <p className="text-gray-600 mt-2">Category : {product.category}</p>
-              <p className="text-gray-600 mt-2">Price : {product.price}</p>
-              <p className="text-gray-600 mt-2">Stock : {product.stock}</p>
+          {orders.map((order) => (
+            <div key={order._id} className="border rounded-md p-2 ">
+              <p className="text-gray-600 font-bold mt-2">Byer : {order.user.name}</p>
+              <p className="text-gray-600 font-bold mt-2">Product : {order.product.name}</p>
+              <p className="text-gray-600 mt-2">No of Items : {order.noOfItem}</p>
+              <p className="text-gray-600 mt-2">Total Amount : {order.totalAmount}</p>
+              <p className="text-gray-600 mt-2">Order Status : {order.orderStatus}</p>
+              <p className="text-gray-600 mt-2">Payment Status : {order.paymentStatus}</p>
             </div>
           ))}
         </div>

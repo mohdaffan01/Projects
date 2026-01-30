@@ -1,21 +1,7 @@
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Legend, Cell } from "recharts";
 import { FaChartSimple } from "react-icons/fa6";
-import { useState } from "react";
-
-const data = [
-  { month: "Jan", sales: 30 },
-  { month: "Feb", sales: 48 },
-  { month: "Mar", sales: 40 },
-  { month: "Apr", sales: 18 },
-  { month: "May", sales: 85 },
-  { month: "Jun", sales: 28 },
-  { month: "Jul", sales: 90 },
-  { month: "Aug", sales: 80 },
-  { month: "Sep", sales: 70 },
-  { month: "Oct", sales: 90 },
-  { month: "Nov", sales: 24 },
-  { month: "Dec", sales: 90 },
-];
+import { useState, useEffect } from "react";
+import axios from "../../api/axios";
 
 const datadonut = [
   { name: "React", value: 40 },
@@ -25,6 +11,32 @@ const datadonut = [
 ];
 
 export default function SalesChart() {
+  
+  const [totalCount, setTotalCount] = useState(0);
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await axios.get("/getOrders");
+        
+        setTotalCount(response.data.totalOrders);
+        console.log("Total Orders from API:", response.data.totalOrders);
+        console.log(response.data)
+
+      } catch (error) {
+        alert("Something went wrong");
+      }
+    };
+    fetchOrders();
+  }, []);
+
+  
+
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const data = months.map((month) => ({
+    month,
+    sales: totalCount,
+  }));
+
   const COLORS = ["#6366F1", "#22C55E", "#F59E0B", "#EF4444"];
 
   const [isDark, setIsDark] = useState(true);

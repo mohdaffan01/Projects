@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BsSearch } from "react-icons/bs";
+import axios from "../../api/axios";
 
-export default function Users(props) {
+export default function Users() {
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get("/allusers");
+        console.log(response);
+        setUsers(response.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUser();
+  }, []);
+
   return (
     <div className="ml-64 mt-16  h-full">
       <div className="flex items-center ">
@@ -16,13 +31,18 @@ export default function Users(props) {
       <div className="bg-gray-800 rounded-xl m-3 ml-4 mt-2 h-full p-2">
         <div className="bg-white rounded-xl shadow-md p-6 h-full ">
           {/**add map funtion and fetch data from database */}
-          <div className="border rounded-md p-2">
-            <h2 className="text-2xl font-semibold text-gray-800">{props.name} </h2>
-            <p className="text-gray-600 mt-2">Phone number: {props.phoneNo}</p>
-            <p className="text-gray-600 mt-2">Address: {props.address}</p>
-            <p className="text-gray-600 mt-2">Product: {props.product}</p>
-          </div>
 
+          {users.length === 0 ? (
+            <p>User not found</p>
+          ) : (
+            users.map((user) => (
+              <div key={user._id} className="border mt-2 rounded-md p-2">
+                <h2 className="text-2xl font-semibold text-gray-800">{user.name} </h2>
+                <p className="text-gray-600 mt-2">Email: {user.email}</p>
+                <p className="text-gray-600 mt-2">username: {user.username}</p>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>
