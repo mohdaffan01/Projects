@@ -54,6 +54,19 @@ export const createUser = async (req, res) => {
     }
 }
 
+//------------------get user--------------------------
+export const getUser = async(req , res) => {
+    try{
+        const users = await User.find();
+        return res.status(200).json({
+            success : true,
+            data : users
+        })
+    }catch(error){
+        console.log(error);
+    }
+}
+
 //---------------------------------Login---------------------------------
 export const login = async (req, res) => {
     try {
