@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import userRouter from "./routes/user.route.js";
 import productRouter from "./routes/product.route.js";
+import orderRouter from "./routes/order.route.js";
 
 dotenv.config();
 const app = express();
@@ -12,6 +13,7 @@ app.use(express.json())
 
 app.use(userRouter)
 app.use(productRouter)
+app.use(orderRouter)
 
 
 mongoose.connect(process.env.MONGO_URL)

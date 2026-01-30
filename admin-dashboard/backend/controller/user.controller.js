@@ -57,7 +57,7 @@ export const createUser = async (req, res) => {
 //------------------get user--------------------------
 export const getUser = async(req , res) => {
     try{
-        const users = await User.find();
+        const users = await User.find().select("name email username");
         return res.status(200).json({
             success : true,
             data : users
