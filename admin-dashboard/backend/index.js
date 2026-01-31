@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import userRouter from "./routes/user.route.js";
 import productRouter from "./routes/product.route.js";
 import orderRouter from "./routes/order.route.js";
+import { autoDeliver } from "./job/autoDeliver.js";
 
 dotenv.config();
 const app = express();
@@ -18,6 +19,7 @@ app.use(orderRouter)
 
 mongoose.connect(process.env.MONGO_URL)
   .then(() => {
+    autoDeliver()//automatic process -> delivered after 1 minute
     app.listen(process.env.PORT, () => {
       console.log("Server listening on PORT:", process.env.PORT);
     });

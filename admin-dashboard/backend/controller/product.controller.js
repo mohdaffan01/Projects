@@ -41,6 +41,7 @@ export const createProduct = async (req, res) => {
 //--------------------------get product-------------------------------
 export const getProduct = async (req, res) => {
     try {
+        const deleteProduct = await Product.deleteMany({stock : 0});
         const users = await Product.find().select("_id name description price category stock");
         return res.status(200).json({
             success: true,

@@ -37,9 +37,13 @@ export default function Sidbar() {
           <p className="px-3 py-2 cursor-pointer rounded hover:bg-gray-700">📦 Products</p>
         </Link>
 
-        <Link to={"/admin/orders"}><p className="px-3 py-2 cursor-pointer rounded hover:bg-gray-700">🛒 Orders</p></Link>
+        <Link to={"/admin/orders"}>
+          <p className="px-3 py-2 cursor-pointer rounded hover:bg-gray-700">🛒 Orders</p>
+        </Link>
 
-        <Link to={"/admin/users"}><p className="px-3 py-2 cursor-pointer rounded hover:bg-gray-700">👥 Users</p></Link>
+        <Link to={"/admin/users"}>
+          <p className="px-3 py-2 cursor-pointer rounded hover:bg-gray-700">👥 Users</p>
+        </Link>
         <p className="px-3 py-2 cursor-pointer rounded hover:bg-gray-700">💳 Payment</p>
         <p className="px-3 py-2 cursor-pointer rounded hover:bg-gray-700">🚚 Shipping</p>
         <p className="px-3 py-2 cursor-pointer rounded hover:bg-gray-700">🏷️ Discounts</p>
@@ -48,10 +52,12 @@ export default function Sidbar() {
         <p className="px-3 py-2 cursor-pointer rounded hover:bg-gray-700">⭐ Reviews</p>
         <p className="px-3 py-2 cursor-pointer rounded hover:bg-gray-700">📈 Reports</p>
 
-        <p className="mt-10 text-xl text-gray-400 hover:text-red-300 cursor-pointer flex items-center gap-2">
-          <RxExit />
-          Logout
-        </p>
+        <Link to={"/login"}>
+          <p className="mt-10 text-xl text-gray-400 hover:text-red-300 cursor-pointer flex items-center gap-2">
+            <RxExit />
+            Logout
+          </p>
+        </Link>
       </div>
     </div>
   );

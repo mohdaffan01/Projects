@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import axios from "../../api/axios";
 
 const datadonut = [
-  { name: "React", value: 40 },
-  { name: "Angular", value: 25 },
-  { name: "Vue", value: 20 },
+  { name: "Electroics", value: 40 },
+  { name: "Food", value: 25 },
+  { name: "Clothing", value: 20 },
   { name: "Others", value: 15 },
 ];
 
@@ -32,9 +32,9 @@ export default function SalesChart() {
   
 
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  const data = months.map((month) => ({
+  const data = months.map((month , index) => ({
     month,
-    sales: totalCount,
+    sales: totalCount + index,
   }));
 
   const COLORS = ["#6366F1", "#22C55E", "#F59E0B", "#EF4444"];

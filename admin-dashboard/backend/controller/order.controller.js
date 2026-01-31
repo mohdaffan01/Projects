@@ -20,29 +20,26 @@ export const createOrder = async (req, res) => {
             });
         }
 
-        if(productData.stock == 0 || noOfItem > productData.stock){
+        if (productData.stock == 0 || noOfItem > productData.stock) {
             return res.status(400).json({
-                success : false,
-                message : "Product not available!"
+                success: false,
+                message: "Product not available!"
             })
         }
 
-        
         const totalAmount = noOfItem * productData.price;
         productData.stock = productData.stock - noOfItem;
 
         await productData.save();
-        
-        
+
         const order = await Order.create({
             user,
             product,
             noOfItem,
             totalAmount
         });
+
         const totalOrders = await Order.countDocuments();
-        
-        
 
         return res.status(201).json({
             success: true,
@@ -64,7 +61,9 @@ export const createOrder = async (req, res) => {
 export const getOrder = async (req, res) => {
     try {
         const orders = await Order.find().populate("user").populate("product");
+        const totalOrders = orders.length;
         return res.status(200).json({
+            totalOrders,
             success: true,
             data: orders
         })
