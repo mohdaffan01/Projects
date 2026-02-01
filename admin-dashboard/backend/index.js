@@ -6,15 +6,20 @@ import userRouter from "./routes/user.route.js";
 import productRouter from "./routes/product.route.js";
 import orderRouter from "./routes/order.route.js";
 import { autoDeliver } from "./job/autoDeliver.js";
+import cookieParser from "cookie-parser";
+import { errorMiddleware } from "./middleware/error.middleware.js";
 
 dotenv.config();
 const app = express();
 app.use(cors())
 app.use(express.json())
+app.use(cookieParser())
 
 app.use(userRouter)
 app.use(productRouter)
 app.use(orderRouter)
+
+app.use(errorMiddleware)
 
 
 mongoose.connect(process.env.MONGO_URL)

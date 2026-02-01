@@ -1,11 +1,10 @@
 import Product from "../model/product.model.js";
 
 export const createProduct = async (req, res) => {
-    console.log(1)
     try {
         const { name, description, price, category, stock, image, brand } = req.body;
         // Validation
-        if (!name || !description || !price || !category || stock === undefined) {
+        if (!name || !description || !price || !category || stock === 0) {
             return res.status(400).json({
                 success: false,
                 message: "All required fields must be provided"

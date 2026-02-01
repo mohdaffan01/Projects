@@ -1,11 +1,11 @@
 import User from "../model/user.model.js"
 import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
 
-
-export const createUser = async (req, res) => {
+export const createUser = async (req, res, next) => {
     try {
         const data = req.body;
-        if (!data.name || !data.email || !data.username || !data.password || !data.confirmPassword || stock == 0) {
+        if (!data?.name?.trim() || !data?.email?.trim() || !data.username?.trim() || !data?.password?.trim() || !data?.confirmPassword?.trim()){
             return res.status(400).json({
                 seccess: false,
                 message: "All fields are required"
@@ -25,62 +25,58 @@ export const createUser = async (req, res) => {
                 message: "Email already exists!"
             });
         }
-
-
+        if(data.password !== data.confirmPassword){
+            return res.status(400).json({
+                success: false,
+                message: "Confirm password not match!"
+            });
+        }
         const hashedPassword = await bcrypt.hash(data.password, 10);
-
         const user = await User.create({
             name: data.name,
             email: data.email,
             username: data.username,
             password: hashedPassword,
-            confirmPassword: data.confirmPassword
+            confirmPassword: data.confirmPassword,
+            role : data.role
         })
-
-        res.status(201).json({
+        const token = jwt.sign({id : user._id }, process.env.SECRET, {expiresIn : "7d"});
+        res.cookie("token",token).status(201).json({
             user: user,
             success: true,
             message: "User created successffuly"
         })
 
     } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: "Server error!"
-        })
+        next(error);
     }
 }
 
 //------------------get user--------------------------
-export const getUser = async(req , res) => {
+export const getUser = async(req , res, next) => {
     try{
-        const users = await User.find().select("name email username");
+        const users = await User.find().select("name email username role");
         return res.status(200).json({
             success : true,
             data : users
         })
     }catch(error){
-        return res.status(500).json({
-            success : false,
-            message : "Something went wrong" 
-        })
+        next(error)
     }
 }
 
 //---------------------------------Login---------------------------------
-export const login = async (req, res) => {
+export const login = async (req, res ,next) => {
     try {
         const data = req.body;
 
         //  Check empty fields
-        if (!data.username || !data.password) {
+        if (!data?.username?.trim() || !data?.password?.trim()) {
             return res.status(400).json({
                 success: false,
                 message: "All fields are required",
             });
         }
-        
-
         // Find user
         const user = await User.findOne({ username: data.username });
         if (!user) {
@@ -89,12 +85,8 @@ export const login = async (req, res) => {
                 message: "User not found",
             });
         }
-
         // Compare password
-        const isPasswordMatch = await bcrypt.compare(
-            data.password,
-            user.password
-        );
+        const isPasswordMatch = await bcrypt.compare( data.password,user.password);
 
         if (!isPasswordMatch) {
             return res.status(401).json({
@@ -103,17 +95,14 @@ export const login = async (req, res) => {
             });
         }
 
+        const token = jwt.sign({id : user._id },process.env.SECRET, {expiresIn : "7d"});
         //  Success
-        return res.status(200).json({
+        return res.cookie("token",token).status(200).json({
             success: true,
             message: "Login successfully!",
         });
 
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({
-            success: false,
-            message: "Server error",
-        });
+        next(error)
     }
 };
