@@ -94,7 +94,12 @@ export const login = async (req, res ,next) => {
                 message: "Invalid password",
             });
         }
-
+        if (user.role !== "admin") {
+            return res.status(400).json({
+                success: false,
+                message: "Admin access only!"
+            })
+        }
         const token = jwt.sign({id : user._id },process.env.SECRET, {expiresIn : "7d"});
         //  Success
         return res.cookie("token",token).status(200).json({

@@ -5,7 +5,7 @@ export const authMiddleware = async (req, res, next) => {
     try {
         const token = req.cookies.token;
         if (!token) {
-            return res.json({
+            return res.status(404).json({
                 success: false,
                 message: "token not found"
             })
@@ -14,7 +14,7 @@ export const authMiddleware = async (req, res, next) => {
 
         const user = await User.findById(tokenData.id);
         if (!user) {
-            return res.status(401).json({
+            return res.status(404).json({
                 success: false,
                 message: "User not found"
             })

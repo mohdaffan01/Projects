@@ -11,15 +11,18 @@ import { errorMiddleware } from "./middleware/error.middleware.js";
 
 dotenv.config();
 const app = express();
-app.use(cors())
-app.use(express.json())
-app.use(cookieParser())
+app.use(cors({
+  origin : "http://localhost:5173",
+  credentials : true
+}));
+app.use(express.json());
+app.use(cookieParser());
 
-app.use(userRouter)
-app.use(productRouter)
-app.use(orderRouter)
+app.use(userRouter);
+app.use(productRouter);
+app.use(orderRouter);
 
-app.use(errorMiddleware)
+app.use(errorMiddleware);
 
 
 mongoose.connect(process.env.MONGO_URL)
