@@ -33,7 +33,7 @@ export default function Dashboard() {
         {/**card for item */}
         <div className="flex gap-13 w-full">
           <div className="relative bg-blue-500 mt-4 h-40 w-90 rounded-xl transition-transform duration-300 ease-in-out hover:scale-105">
-            <h1 className="text-4xl m-4 font-bold text-gray-300">{users.length}</h1>
+            <h1 className="text-4xl m-4 font-bold text-gray-300">{users?.length ?? 0}</h1>
             <p className="text-2xl m-4 font-sans text-gray-300">Users</p>
 
             {/* bottom bar */}
@@ -47,7 +47,7 @@ export default function Dashboard() {
           </div>
 
           <div className="relative bg-purple-400 mt-4 h-40 w-90 rounded-xl transition-transform duration-300 ease-in-out hover:scale-105">
-            <h1 className="text-4xl m-4 font-bold text-gray-200">{products.length}</h1>
+            <h1 className="text-4xl m-4 font-bold text-gray-200">{products?.length ?? 0}</h1>
             <p className="text-2xl m-4 font-sans text-gray-100">Total Products</p>
             <Link to={"/admin/products"}>
             <div className="absolute bottom-0 left-0 w-full bg-purple-700 text-center text-white py-2 cursor-pointer hover:bg-black/20 transition">
@@ -59,7 +59,7 @@ export default function Dashboard() {
           </div>
 
           <div className="relative bg-cyan-600 mt-4 h-40 w-90 rounded-xl transition-transform duration-300 ease-in-out hover:scale-105">
-            <h1 className="text-4xl m-4 font-bold text-gray-300">{orders.length}</h1>
+            <h1 className="text-4xl m-4 font-bold text-gray-300">{orders?.length ?? 0}</h1>
             <p className="text-2xl m-4 font-sans text-gray-300">Total Orders</p>
             <Link to={"/admin/orders"}>
             <div className="absolute bottom-0 left-0 w-full bg-cyan-900 text-white text-center py-2 cursor-pointer hover:bg-black/20 transition">

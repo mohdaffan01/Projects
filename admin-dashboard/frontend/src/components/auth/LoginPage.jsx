@@ -14,14 +14,11 @@ export default function LoginPage() {
         username,
         password,
       });
-      if (res.data.success) {
-        navigate("/admin/dashboard");
-      }
-
+      navigate("/admin/dashboard");
     } catch (error) {
       alert(error.response?.data?.message || "Login failed");
     }
-  }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-900 via-slate-800 to-blue-900 px-4">
@@ -29,10 +26,8 @@ export default function LoginPage() {
         <div className="grid grid-cols-1 md:grid-cols-2">
           {/* Left Section */}
           <div className="hidden md:flex flex-col justify-center p-12 bg-linear-to-br from-slate-900 to-blue-900">
-            <h2 className="text-4xl font-bold text-gray-100">Welcome Back 👋</h2>
-            <p className="mt-4 text-gray-400 text-lg leading-relaxed">
-              Access your account, manage your projects, and stay connected with everything you’re building. Let’s get you signed in.
-            </p>
+            <h2 className="text-4xl font-bold text-gray-100">Admin Login </h2>
+            <p className="mt-4 text-gray-400 text-lg leading-relaxed">This dashboard can be access only by admin!</p>
           </div>
 
           {/* Right Section */}

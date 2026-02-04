@@ -32,10 +32,10 @@ export default function Users() {
         <div className="bg-white rounded-xl shadow-md p-6 h-full ">
           {/**add map funtion and fetch data from database */}
 
-          {users.length === 0 ? (
+          {users?.length === 0 ? (
             <p>User not found</p>
           ) : (
-            users.map((user) => (
+            users?.map((user) => (
               <div key={user._id} className="border mt-2 rounded-md p-2">
                 <h2 className="text-2xl font-semibold text-gray-800">{user.name} </h2>
                 <p className="text-gray-600 mt-2">Email: {user.email}</p>
